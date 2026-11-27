@@ -1,0 +1,236 @@
+{
+  "ingest": {
+    "records": 16662,
+    "sources": 26,
+    "attribute_values": 427137,
+    "distinct_attribute_names": 1687,
+    "mongodb_records": 11335,
+    "sql_records": 5327,
+    "er_gt_rows": 2342,
+    "sm_gt_rows": 1345
+  },
+  "clean": {
+    "rows_in": 427137,
+    "after_empty_removed": 427137,
+    "after_duplicates_removed": 427137,
+    "distinct_attribute_names_raw": 1687,
+    "distinct_attribute_names_normalized": 1680,
+    "products": 16662,
+    "brand_missing_pct": 17.9,
+    "brand_recovered_from_title": 6773,
+    "screen_missing_pct": 16.2,
+    "screen_recovered_from_title": 3778,
+    "resolution_missing_pct": 27.2,
+    "distinct_brands": 28,
+    "duplicate_listings_flagged": 602
+  },
+  "spark": {
+    "rdd": {
+      "top_attributes": [
+        [
+          "response time",
+          10395
+        ],
+        [
+          "aspect ratio",
+          10099
+        ],
+        [
+          "contrast ratio",
+          9185
+        ],
+        [
+          "brightness",
+          8460
+        ],
+        [
+          "screen size",
+          7902
+        ],
+        [
+          "manufacturer",
+          5733
+        ],
+        [
+          "condition",
+          5206
+        ],
+        [
+          "product type",
+          4761
+        ],
+        [
+          "width",
+          4391
+        ],
+        [
+          "depth",
+          4351
+        ]
+      ],
+      "attributes_used_by_one_listing": 31,
+      "distinct_attributes_per_source": {
+        "www.ohc24.ch": 54,
+        "www.odsi.co.uk": 161,
+        "www.planet-computer.it": 209,
+        "catalog.com": 14,
+        "www.hardware-planet.it": 192,
+        "www.ebay.com": 879,
+        "www.jrlinton.co.uk": 88,
+        "www.cleverboxes.com": 133,
+        "www.shopmania.com": 47,
+        "www.best-deal-items.com": 352,
+        "www.mediashopuk.com": 151,
+        "www.makingbuyingeasy.co.uk": 210,
+        "www.nexus-t.co.uk": 78,
+        "www.vology.com": 92,
+        "www.getprice.com.au": 5,
+        "www.xpcpro.com": 199,
+        "www.softwarecity.ca": 89,
+        "www.itenergy.co.uk": 90,
+        "www.kingsfieldcomputers.co.uk": 85,
+        "www.pc-canada.com": 72,
+        "www.imldirect.it": 89,
+        "ce.yikus.com": 72,
+        "ca.pcpartpicker.com": 24,
+        "www.officedepot.com": 99,
+        "www.pcconnection.com": 50,
+        "www.mrhightech.com": 151
+      }
+    },
+    "dataframe": {
+      "entities": 232,
+      "median_listings_per_entity": 10.0,
+      "median_websites_per_entity": 5.0,
+      "entities_with_conflicting_size_gt_1in": 17,
+      "entities_with_conflicting_brand": 7
+    },
+    "benchmark": [
+      {
+        "engine": "pandas",
+        "scale": 1,
+        "rows": 427137,
+        "seconds": 0.16
+      },
+      {
+        "engine": "Dask",
+        "scale": 1,
+        "rows": 427137,
+        "seconds": 0.103
+      },
+      {
+        "engine": "Spark DataFrame",
+        "scale": 1,
+        "rows": 427137,
+        "seconds": 0.491
+      },
+      {
+        "engine": "Spark RDD",
+        "scale": 1,
+        "rows": 427137,
+        "seconds": 1.663
+      },
+      {
+        "engine": "pandas",
+        "scale": 4,
+        "rows": 1708548,
+        "seconds": 0.456
+      },
+      {
+        "engine": "Dask",
+        "scale": 4,
+        "rows": 1708548,
+        "seconds": 0.217
+      },
+      {
+        "engine": "Spark DataFrame",
+        "scale": 4,
+        "rows": 1708548,
+        "seconds": 0.663
+      },
+      {
+        "engine": "Spark RDD",
+        "scale": 4,
+        "rows": 1708548,
+        "seconds": 4.538
+      },
+      {
+        "engine": "pandas",
+        "scale": 10,
+        "rows": 4271370,
+        "seconds": 1.149
+      },
+      {
+        "engine": "Dask",
+        "scale": 10,
+        "rows": 4271370,
+        "seconds": 0.529
+      },
+      {
+        "engine": "Spark DataFrame",
+        "scale": 10,
+        "rows": 4271370,
+        "seconds": 0.79
+      },
+      {
+        "engine": "Spark RDD",
+        "scale": 10,
+        "rows": 4271370,
+        "seconds": 11.33
+      }
+    ]
+  },
+  "schema_matching": {
+    "labeled_source_attributes": 1026,
+    "target_attributes": 87,
+    "correspondences": 1344,
+    "name_similarity": {
+      "precision": 0.741,
+      "recall": 0.372,
+      "f1": 0.495,
+      "tp": 500,
+      "fp": 175,
+      "fn": 844
+    },
+    "learned_dictionary": {
+      "precision": 0.912,
+      "recall": 0.671,
+      "f1": 0.773,
+      "tp": 902,
+      "fp": 87,
+      "fn": 442
+    }
+  },
+  "entity_resolution": {
+    "gt_duplicate_rows_removed": 60,
+    "gt_specs_in_two_entities": 9,
+    "labeled_listings": 2273,
+    "true_entities": 232,
+    "predicted_clusters": 267,
+    "blocks": 646,
+    "candidate_pairs": 12712,
+    "all_pairs_without_blocking": 2582128,
+    "pairwise": {
+      "precision": 0.763,
+      "recall": 0.943,
+      "f1": 0.844,
+      "tp": 12211,
+      "fp": 3789,
+      "fn": 738
+    },
+    "boilerplate_codes_removed": 10
+  },
+  "streaming": {
+    "skipped": true
+  },
+  "timings_seconds": {
+    "build_sources": 4.08,
+    "ingest": 2.44,
+    "clean": 4.54,
+    "spark": 44.0,
+    "schema_matching": 2.62,
+    "entity_resolution": 0.45,
+    "streaming": 0.0,
+    "total": 58.13
+  }
+}

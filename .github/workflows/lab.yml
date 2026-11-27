@@ -1,0 +1,55 @@
+name: Big Data Integration Lab
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: lab
+          POSTGRES_PASSWORD: lab
+          POSTGRES_DB: catalog
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U lab" --health-interval 5s --health-timeout 5s --health-retries 10
+      mongodb:
+        image: mongo:7.0
+        ports: ["27017:27017"]
+      kafka:
+        image: apache/kafka:3.8.0
+        ports: ["9092:9092"]
+    env:
+      SQL_URL: postgresql+psycopg2://lab:lab@localhost:5432/catalog
+      MONGO_URI: mongodb://localhost:27017
+      KAFKA_BOOTSTRAP: localhost:9092
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Unit tests
+        run: pytest -v
+      - name: Run full lab (PostgreSQL + MongoDB + Spark + Kafka streaming)
+        run: python run_all.py
+      - name: Show results
+        run: cat results/summary.json
+      - name: Upload figures and results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab-results
+          path: |
+            figures/
+            results/

@@ -1,0 +1,29 @@
+2026-11-27 07:44:51,914 | INFO | build_sources | MongoDB: 11335 documents from 13 sites | SQL: 5327 products, 184222 attribute rows from 13 sites
+2026-11-27 07:44:53,582 | INFO | ingest | MongoDB: 11335 documents, 242915 attribute values
+2026-11-27 07:44:54,131 | INFO | ingest | SQL: 5327 products, 184222 attribute values
+2026-11-27 07:44:54,519 | INFO | ingest | Unified: {'records': 16662, 'sources': 26, 'attribute_values': 427137, 'distinct_attribute_names': 1687, 'mongodb_records': 11335, 'sql_records': 5327, 'er_gt_rows': 2342, 'sm_gt_rows': 1345}
+2026-11-27 07:44:59,067 | INFO | clean | Cleaning report: {'rows_in': 427137, 'after_empty_removed': 427137, 'after_duplicates_removed': 427137, 'distinct_attribute_names_raw': 1687, 'distinct_attribute_names_normalized': 1680, 'products': 16662, 'brand_missing_pct': 17.9, 'brand_recovered_from_title': 6773, 'screen_missing_pct': 16.2, 'screen_recovered_from_title': 3778, 'resolution_missing_pct': 27.2, 'distinct_brands': 28, 'duplicate_listings_flagged': 602}
+2026-11-27 07:45:10,849 | INFO | spark | RDD job: top attributes [('response time', 10395), ('aspect ratio', 10099), ('contrast ratio', 9185), ('brightness', 8460), ('screen size', 7902)]; 31 attribute names appear only once
+2026-11-27 07:45:14,520 | INFO | spark | DataFrame job: {'entities': 232, 'median_listings_per_entity': 10.0, 'median_websites_per_entity': 5.0, 'entities_with_conflicting_size_gt_1in': 17, 'entities_with_conflicting_brand': 7}
+2026-11-27 07:45:17,493 | INFO | spark | Benchmark 1x (427137 rows) done
+2026-11-27 07:45:24,907 | INFO | spark | Benchmark 4x (1708548 rows) done
+2026-11-27 07:45:42,155 | INFO | spark | Benchmark 10x (4271370 rows) done
+2026-11-27 07:45:42,161 | INFO | spark | Benchmark:
+         engine  scale    rows  seconds
+         pandas      1  427137    0.160
+           Dask      1  427137    0.103
+Spark DataFrame      1  427137    0.491
+      Spark RDD      1  427137    1.663
+         pandas      4 1708548    0.456
+           Dask      4 1708548    0.217
+Spark DataFrame      4 1708548    0.663
+      Spark RDD      4 1708548    4.538
+         pandas     10 4271370    1.149
+           Dask     10 4271370    0.529
+Spark DataFrame     10 4271370    0.790
+      Spark RDD     10 4271370   11.330
+2026-11-27 07:45:45,735 | INFO | integrate | Schema matching: {'labeled_source_attributes': 1026, 'target_attributes': 87, 'correspondences': 1344, 'name_similarity': {'precision': 0.741, 'recall': 0.372, 'f1': 0.495, 'tp': 500, 'fp': 175, 'fn': 844}, 'learned_dictionary': {'precision': 0.912, 'recall': 0.671, 'f1': 0.773, 'tp': 902, 'fp': 87, 'fn': 442}}
+2026-11-27 07:45:46,177 | INFO | integrate | Entity resolution: {'gt_duplicate_rows_removed': 60, 'gt_specs_in_two_entities': 9, 'labeled_listings': 2273, 'true_entities': 232, 'predicted_clusters': 267, 'blocks': 646, 'candidate_pairs': 12712, 'all_pairs_without_blocking': 2582128, 'pairwise': {'precision': 0.763, 'recall': 0.943, 'f1': 0.844, 'tp': 12211, 'fp': 3789, 'fn': 738}, 'boilerplate_codes_removed': 10}
+2026-11-27 07:45:46,182 | WARNING | streaming | KAFKA_BOOTSTRAP not set; streaming step skipped (runs in GitHub Actions)
+2026-11-27 07:45:47,916 | INFO | run_all | Done in 58.1 s. Results: results/summary.json, figures/*.png
+2026-11-27 07:45:47,920 | INFO | py4j.clientserver | Closing down clientserver connection

@@ -1,0 +1,13 @@
+engine,scale,rows,seconds
+pandas,1,427137,0.16
+Dask,1,427137,0.103
+Spark DataFrame,1,427137,0.491
+Spark RDD,1,427137,1.663
+pandas,4,1708548,0.456
+Dask,4,1708548,0.217
+Spark DataFrame,4,1708548,0.663
+Spark RDD,4,1708548,4.538
+pandas,10,4271370,1.149
+Dask,10,4271370,0.529
+Spark DataFrame,10,4271370,0.79
+Spark RDD,10,4271370,11.33

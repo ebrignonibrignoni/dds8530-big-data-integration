@@ -66,6 +66,12 @@ def fig_quality(prod):
 
 def fig_integration(summary):
     sm, er = summary["schema_matching"], summary["entity_resolution"]["pairwise"]
+
+    def exact(m):  # recompute from counts so labels round correctly (0.4953 -> 0.50)
+        tp, fp, fn = m["tp"], m["fp"], m["fn"]
+        return {"precision": tp / (tp + fp), "recall": tp / (tp + fn), "f1": 2 * tp / (2 * tp + fp + fn)}
+    sm = {k: exact(sm[k]) for k in ("name_similarity", "learned_dictionary")}
+    er = exact(er)
     d = pd.DataFrame({
         "Schema matching: name similarity": sm["name_similarity"],
         "Schema matching: learned dictionary": sm["learned_dictionary"],
@@ -107,7 +113,7 @@ def fig_stream():
     p = RESULTS / "stream_by_brand.csv"
     if not p.exists():
         return
-    s = pd.read_csv(p).head(12)
+    s = pd.read_csv(p)
     fig, ax = plt.subplots(figsize=(8, 4.5))
     sns.barplot(data=s, y="brand", x="count", color="#2e7d32", ax=ax)
     ax.set_title("Listings per brand computed by Spark Structured Streaming from Kafka")

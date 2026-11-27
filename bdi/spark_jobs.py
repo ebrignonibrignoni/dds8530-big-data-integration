@@ -13,14 +13,22 @@ import pandas as pd
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
-from bdi.config import GT_DIR, RESULTS, STAGE, get_logger
+from bdi.config import GT_DIR, KAFKA_BOOTSTRAP, RESULTS, STAGE, get_logger
 
 log = get_logger("spark")
 
 
+SPARK_KAFKA = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.3"
+
+
 def session() -> SparkSession:
-    return (SparkSession.builder.master("local[*]").appName("alaska-integration")
-            .config("spark.sql.shuffle.partitions", "8").config("spark.ui.enabled", "false").getOrCreate())
+    """One Spark configuration for the whole run. Spark starts its Java process once per Python
+    process, so the Kafka connector must be requested here, before the first session starts."""
+    b = (SparkSession.builder.master("local[*]").appName("alaska-integration")
+         .config("spark.sql.shuffle.partitions", "8").config("spark.ui.enabled", "false"))
+    if KAFKA_BOOTSTRAP:
+        b = b.config("spark.jars.packages", SPARK_KAFKA)
+    return b.getOrCreate()
 
 
 def rdd_job(spark) -> dict:

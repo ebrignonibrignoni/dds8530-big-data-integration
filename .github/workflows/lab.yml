@@ -29,12 +29,12 @@ jobs:
       MONGO_URI: mongodb://localhost:27017
       KAFKA_BOOTSTRAP: localhost:9092
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: pip
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
@@ -47,7 +47,7 @@ jobs:
       - name: Show results
         run: cat results/summary.json
       - name: Upload figures and results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: lab-results
           path: |

@@ -13,7 +13,6 @@ import pandas as pd
 from bdi.config import KAFKA_BOOTSTRAP, KAFKA_TOPIC, RESULTS, STAGE, get_logger
 
 log = get_logger("streaming")
-SPARK_KAFKA = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.3"
 
 
 def produce(n: int = 3000) -> int:
@@ -30,12 +29,11 @@ def produce(n: int = 3000) -> int:
 
 
 def consume() -> dict:
-    from pyspark.sql import SparkSession
     from pyspark.sql import functions as F
     from pyspark.sql.types import DoubleType, StringType, StructField, StructType
 
-    spark = (SparkSession.builder.master("local[*]").appName("alaska-stream")
-             .config("spark.jars.packages", SPARK_KAFKA).config("spark.ui.enabled", "false").getOrCreate())
+    from bdi.spark_jobs import session
+    spark = session()
     schema = StructType([StructField("spec_id", StringType()), StructField("source", StringType()),
                          StructField("page_title", StringType()), StructField("event_time", DoubleType())])
     raw = (spark.readStream.format("kafka").option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP)

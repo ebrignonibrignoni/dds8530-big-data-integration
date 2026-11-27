@@ -112,7 +112,7 @@ def fig_stream():
     sns.barplot(data=s, y="brand", x="count", color="#2e7d32", ax=ax)
     ax.set_title("Listings per brand computed by Spark Structured Streaming from Kafka")
     ax.set_xlabel("Messages")
-    ax.set_ylabel("Brand detected in the listing title ('other' = none of 12 brands)")
+    ax.set_ylabel("Brand in listing title")
     fig.tight_layout()
     fig.savefig(FIGURES / "fig6_streaming.png", dpi=200)
     plt.close(fig)

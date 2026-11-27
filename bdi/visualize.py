@@ -2,6 +2,7 @@
 import json
 
 import matplotlib
+import matplotlib.ticker
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import pandas as pd  # noqa: E402
@@ -84,12 +85,19 @@ def fig_integration(summary):
 
 def fig_benchmark():
     b = pd.read_csv(RESULTS / "benchmark.csv")
-    fig, ax = plt.subplots(figsize=(8, 4.8))
+    fig, ax = plt.subplots(figsize=(9.5, 4.8))
     sns.lineplot(data=b, x="rows", y="seconds", hue="engine", marker="o", ax=ax)
     ax.set_xlabel("Rows processed (1x, 4x, 10x the Alaska monitor data)")
-    ax.set_ylabel("Execution time (seconds)")
+    ax.set_yscale("log")
+    ax.set_ylabel("Execution time (seconds, log scale)")
     ax.set_title("Same aggregation in four engines")
-    ax.ticklabel_format(axis="x", style="plain")
+    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v / 1e6:.1f} M"))
+    for e, g in b.groupby("engine"):
+        last = g.iloc[-1]
+        ax.annotate(f"{last.seconds:.2f} s", (last.rows, last.seconds), textcoords="offset points",
+                    xytext=(6, 0), va="center", fontsize=9)
+    ax.set_xlim(right=b.rows.max() * 1.15)
+    ax.legend(title="Engine", loc="upper left", bbox_to_anchor=(1.01, 1))
     fig.tight_layout()
     fig.savefig(FIGURES / "fig5_benchmark.png", dpi=200)
     plt.close(fig)
@@ -104,6 +112,7 @@ def fig_stream():
     sns.barplot(data=s, y="brand", x="count", color="#2e7d32", ax=ax)
     ax.set_title("Listings per brand computed by Spark Structured Streaming from Kafka")
     ax.set_xlabel("Messages")
+    ax.set_ylabel("Brand detected in the listing title ('other' = none of 12 brands)")
     fig.tight_layout()
     fig.savefig(FIGURES / "fig6_streaming.png", dpi=200)
     plt.close(fig)

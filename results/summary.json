@@ -83,26 +83,26 @@
         "www.mediashopuk.com": 151,
         "www.makingbuyingeasy.co.uk": 210,
         "www.nexus-t.co.uk": 78,
-        "www.vology.com": 92,
+        "ca.pcpartpicker.com": 24,
+        "ce.yikus.com": 72,
         "www.getprice.com.au": 5,
-        "www.xpcpro.com": 199,
-        "www.softwarecity.ca": 89,
+        "www.imldirect.it": 89,
         "www.itenergy.co.uk": 90,
         "www.kingsfieldcomputers.co.uk": 85,
-        "www.pc-canada.com": 72,
-        "www.imldirect.it": 89,
-        "ce.yikus.com": 72,
-        "ca.pcpartpicker.com": 24,
+        "www.mrhightech.com": 151,
         "www.officedepot.com": 99,
+        "www.pc-canada.com": 72,
         "www.pcconnection.com": 50,
-        "www.mrhightech.com": 151
+        "www.softwarecity.ca": 89,
+        "www.vology.com": 92,
+        "www.xpcpro.com": 199
       }
     },
     "dataframe": {
       "entities": 232,
       "median_listings_per_entity": 10.0,
       "median_websites_per_entity": 5.0,
-      "entities_with_conflicting_size_gt_1in": 17,
+      "entities_with_conflicting_size_gt_1in": 18,
       "entities_with_conflicting_brand": 7
     },
     "benchmark": [
@@ -110,73 +110,73 @@
         "engine": "pandas",
         "scale": 1,
         "rows": 427137,
-        "seconds": 0.16
+        "seconds": 0.101
       },
       {
         "engine": "Dask",
         "scale": 1,
         "rows": 427137,
-        "seconds": 0.103
+        "seconds": 0.07
       },
       {
         "engine": "Spark DataFrame",
         "scale": 1,
         "rows": 427137,
-        "seconds": 0.491
-      },
-      {
-        "engine": "Spark RDD",
-        "scale": 1,
-        "rows": 427137,
-        "seconds": 1.663
-      },
-      {
-        "engine": "pandas",
-        "scale": 4,
-        "rows": 1708548,
         "seconds": 0.456
       },
       {
+        "engine": "Spark RDD",
+        "scale": 1,
+        "rows": 427137,
+        "seconds": 2.706
+      },
+      {
+        "engine": "pandas",
+        "scale": 4,
+        "rows": 1708548,
+        "seconds": 0.355
+      },
+      {
         "engine": "Dask",
         "scale": 4,
         "rows": 1708548,
-        "seconds": 0.217
+        "seconds": 0.197
       },
       {
         "engine": "Spark DataFrame",
         "scale": 4,
         "rows": 1708548,
-        "seconds": 0.663
+        "seconds": 0.504
       },
       {
         "engine": "Spark RDD",
         "scale": 4,
         "rows": 1708548,
-        "seconds": 4.538
+        "seconds": 6.328
       },
       {
         "engine": "pandas",
         "scale": 10,
         "rows": 4271370,
-        "seconds": 1.149
+        "seconds": 0.873
       },
       {
         "engine": "Dask",
         "scale": 10,
         "rows": 4271370,
-        "seconds": 0.529
+        "seconds": 0.419
       },
       {
         "engine": "Spark DataFrame",
         "scale": 10,
         "rows": 4271370,
-        "seconds": 0.79
+        "seconds": 0.6
       },
       {
         "engine": "Spark RDD",
         "scale": 10,
         "rows": 4271370,
-        "seconds": 11.33
+        "seconds": 12.286
       }
     ]
   },
@@ -212,25 +212,62 @@
     "all_pairs_without_blocking": 2582128,
     "pairwise": {
       "precision": 0.763,
-      "recall": 0.943,
+      "recall": 0.944,
       "f1": 0.844,
-      "tp": 12211,
+      "tp": 12221,
       "fp": 3789,
-      "fn": 738
+      "fn": 728
     },
     "boilerplate_codes_removed": 10
   },
   "streaming": {
-    "skipped": true
+    "messages_processed": 3000,
+    "micro_batches": 1,
+    "seconds": 2.12,
+    "rows_per_second": 1412.4,
+    "top_brands": [
+      {
+        "brand": "other",
+        "count": 909
+      },
+      {
+        "brand": "dell",
+        "count": 328
+      },
+      {
+        "brand": "hp",
+        "count": 260
+      },
+      {
+        "brand": "samsung",
+        "count": 217
+      },
+      {
+        "brand": "acer",
+        "count": 216
+      },
+      {
+        "brand": "asus",
+        "count": 200
+      },
+      {
+        "brand": "nec",
+        "count": 156
+      },
+      {
+        "brand": "lg",
+        "count": 138
+      }
+    ]
   },
   "timings_seconds": {
-    "build_sources": 4.08,
-    "ingest": 2.44,
-    "clean": 4.54,
-    "spark": 44.0,
-    "schema_matching": 2.62,
-    "entity_resolution": 0.45,
-    "streaming": 0.0,
-    "total": 58.13
+    "build_sources": 8.52,
+    "ingest": 1.67,
+    "clean": 5.7,
+    "spark": 54.57,
+    "schema_matching": 2.51,
+    "entity_resolution": 0.3,
+    "streaming": 4.11,
+    "total": 77.39
   }
 }

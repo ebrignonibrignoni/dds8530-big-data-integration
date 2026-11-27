@@ -4,6 +4,8 @@ DDS-8530 Big Data Integration, Week 6. Author: C. Elizabeth Brignoni Brignoni.
 
 This lab integrates the **monitor** vertical of the Alaska benchmark (Crescenzi et al., 2021): **16,662 product listings from 26 e-commerce websites, described by 1,687 distinct attribute names**, with curated ground truth for schema matching (87 target attributes, 1,026 labeled source attributes) and entity resolution (232 real-world monitors, 2,273 labeled listings).
 
+![Architecture](docs/architecture.png)
+
 ## What the pipeline does
 
 | Stage | Tools | Module |
@@ -27,7 +29,7 @@ python run_all.py                                     # downloads Alaska, runs e
 
 Without `MONGO_URI` the MongoDB step uses an in-memory mongomock database, and without `KAFKA_BOOTSTRAP` the streaming step is skipped. The GitHub Actions workflow (`.github/workflows/lab.yml`) starts real **PostgreSQL 16, MongoDB 7 and Apache Kafka 3.8** service containers and runs the complete lab, including streaming, on every push. Figures and `results/summary.json` are uploaded as a build artifact.
 
-## Key results (local run; see results/summary.json)
+## Key results (GitHub Actions run with PostgreSQL 16, MongoDB 7 and Kafka 3.8; see results/summary.json)
 
 | Measure | Result |
 | --- | --- |
@@ -38,6 +40,17 @@ Without `MONGO_URI` the MongoDB step uses an in-memory mongomock database, and w
 | Entity resolution pairwise precision / recall / F1 | 0.76 / 0.94 / 0.84 |
 | Candidate pairs: all pairs / after blocking | 2,582,128 / 12,712 (99.5% fewer) |
 | Ground-truth issues found | 60 duplicate rows; 9 listings assigned to two entities |
+| Kafka to Spark Structured Streaming | 3,000 messages in one micro-batch, 2.12 s (about 1,412 messages per second) |
+| Same aggregation at 10x volume (4.27 M rows) | Dask 0.42 s, Spark DataFrame 0.60 s, pandas 0.87 s, Spark RDD 12.29 s |
+| Full lab run time | 77.4 s (Spark jobs and benchmark 54.6 s) |
+
+## Figures
+
+| | |
+| --- | --- |
+| ![Sources](figures/fig1_sources.png) | ![Heterogeneity](figures/fig2_heterogeneity.png) |
+| ![Quality](figures/fig3_quality.png) | ![Integration](figures/fig4_integration.png) |
+| ![Benchmark](figures/fig5_benchmark.png) | ![Streaming](figures/fig6_streaming.png) |
 
 ## Source
 

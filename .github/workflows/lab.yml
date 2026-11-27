@@ -45,7 +45,10 @@ jobs:
       - name: Run full lab (PostgreSQL + MongoDB + Spark + Kafka streaming)
         run: python run_all.py
       - name: Show results
-        run: cat results/summary.json
+        run: |
+          cat results/summary.json
+          echo "--- benchmark.csv"; cat results/benchmark.csv
+          echo "--- stream_by_brand.csv"; cat results/stream_by_brand.csv
       - name: Upload figures and results
         uses: actions/upload-artifact@v5
         with:
